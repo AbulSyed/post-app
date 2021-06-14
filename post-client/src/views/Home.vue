@@ -1,16 +1,15 @@
 <template>
   <div class="home">
-    <button @click="handleClick">Logout</button>
+    <Header />
+    <Footer />
   </div>
 </template>
 
 <script>
+import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
+
 export default {
-  methods: {
-    handleClick(){
-      this.$store.dispatch('logout')
-      this.$router.push({ name: 'Login' })
-    }
-  }
+  components: { Header, Footer }
 }
 </script>
