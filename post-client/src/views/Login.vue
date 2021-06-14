@@ -4,11 +4,11 @@
       <h3>POST<span>APP</span></h3>
       <h4>Login</h4>
     </header>
-    <form>
+    <form @submit.prevent="handleSubmit">
       <input type="email" required placeholder="email" v-model="email">
       <input type="password" required placeholder="password" v-model="password">
       <button>Login</button>
-      <div v-if="error" class="error">{{ errorMessage }}</div>
+      <div v-if="error" class="error">{{ error }}</div>
     </form>
     <footer>
       <p>No account yet? <router-link :to="{ name: 'Signup' }" class="link">Signup</router-link></p>
@@ -17,16 +17,28 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data(){
     return {
       email: '',
-      password: '',
-      error: false,
-      errorMessage: ''
+      password: ''
     }
   },
+  computed: {
+    ...mapState(['error'])
+  },
   methods: {
+    async handleSubmit(){
+      await this.$store.dispatch('login', {
+        email: this.email,
+        password: this.password
+      })
+      if(!this.error){
+        this.$router.push({ name: 'Home' })
+      }
+    }
   }
 }
 </script>

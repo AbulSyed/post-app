@@ -4,13 +4,12 @@
       <h3>POST<span>APP</span></h3>
       <h4>Signup</h4>
     </header>
-    <form>
-      <input type="text" required placeholder="first name" v-model="firstname">
-      <input type="text" required placeholder="last name" v-model="lastname">
+    <form @submit.prevent="handleSubmit">
+      <input type="text" required placeholder="name" v-model="name">
       <input type="email" required placeholder="email" v-model="email">
       <input type="password" required placeholder="password" v-model="password">
       <button>Signup</button>
-      <div v-if="error" class="error">{{ errorMessage }}</div>
+      <div v-if="error" class="error">{{ error }}</div>
     </form>
     <footer>
       <p>Already registered? <router-link :to="{ name: 'Login' }" class="link">Login</router-link></p>
@@ -19,18 +18,30 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data(){
     return {
-      firstname: '',
-      lastname: '',
+      name: '',
       email: '',
-      password: '',
-      error: false,
-      errorMessage: ''
+      password: ''
     }
   },
+  computed: {
+    ...mapState(['error'])
+  },
   methods: {
+    async handleSubmit(){
+      await this.$store.dispatch('signup', {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      })
+      if(!this.error){
+        this.$router.push({ name: 'Home' })
+      }
+    }
   }
 }
 </script>

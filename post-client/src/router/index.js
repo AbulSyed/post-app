@@ -4,8 +4,16 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 
 const requireAuth = (to, from, next) => {
-  if(!localStorage.getItem('jwt')){
+  if(!localStorage.getItem('token')){
     next({ name: 'Login' })
+  }else{
+    next()
+  }
+}
+
+const authed = (to, from, next) => {
+  if(localStorage.getItem('token')){
+    next({ name: 'Home' })
   }else{
     next()
   }
@@ -21,12 +29,14 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    beforeEnter: authed
   },
   {
     path: '/signup',
     name: 'Signup',
-    component: Signup
+    component: Signup,
+    beforeEnter: authed
   }
 ]
 
