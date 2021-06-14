@@ -13,7 +13,6 @@
   left: 0;
   right: 0;
   padding: 1rem;
-  border-top: 1px solid #ccc;
   background: rgb(255, 254, 254);
   display: flex;
   justify-content: space-around;
