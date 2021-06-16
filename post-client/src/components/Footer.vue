@@ -1,10 +1,20 @@
 <template>
   <div class="footer">
-    <button>Home</button>
-    <button>Post</button>
+    <button @click="goto('/')">Home</button>
+    <button @click="goto('/addPost')">Post</button>
     <button>Profile</button>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    goto(path){
+      this.$router.push(path)
+    }
+  }
+}
+</script>
 
 <style scoped>
 .footer {

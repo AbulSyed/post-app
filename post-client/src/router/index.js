@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
+import AddPost from '../views/AddPost.vue'
 
 const requireAuth = (to, from, next) => {
   if(!localStorage.getItem('token')){
@@ -37,6 +38,12 @@ const routes = [
     name: 'Signup',
     component: Signup,
     beforeEnter: authed
+  },
+  {
+    path: '/addPost',
+    name: 'AddPost',
+    component: AddPost,
+    beforeEnter: requireAuth
   }
 ]
 

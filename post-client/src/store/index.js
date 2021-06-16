@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import api from '../api/api'
+import { storageService } from '../firebase/config'
 
 export default createStore({
   state: {
@@ -27,7 +28,8 @@ export default createStore({
         img: 'https://www.dotcom-monitor.com/blog/wp-content/uploads/sites/3/2020/05/Vue-logo-1.png',
         timestamp: '2021-06-12T12:59:57.337Z'
       }
-    ]
+    ],
+    url: null
   },
   mutations: {
     SET_USER(state, user){
@@ -35,6 +37,18 @@ export default createStore({
     },
     SET_ERROR(state, error){
       state.error = error
+    },
+    SET_URL(state, url){
+      state.url = url
+    },
+    ADD_POST(state, post){
+      state.feed = state.feed.concat({
+        _id: post.id,
+        name: post.name,
+        desc: post.desc,
+        img: post.img,
+        timestamp: post.createdAt
+      })
     }
   },
   actions: {
@@ -63,6 +77,32 @@ export default createStore({
     logout(context){
       localStorage.removeItem('token')
       context.commit('SET_USER', null)
+    },
+    async uploadImage(context, file){
+      const storageRef = storageService.ref(`images/${context.state.user._id}/${file.name}`)
+
+      try {
+        const res = await storageRef.put(file)
+        await context.commit('SET_URL', res.ref.getDownloadURL())
+        context.commit('SET_ERROR', null)
+        return res.ref.getDownloadURL()
+      }catch(err){
+        console.log(err.message)
+        context.commit('SET_ERROR', err.message)
+      }
+    },
+    async addPost(context, post){
+      try {
+        const res = await api.post('/post', post, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        context.commit('ADD_POST', res.data)
+      }catch(err){
+        console.log(err.response.data)
+        context.commit('SET_ERROR', err.response.data)
+      }
     }
   },
   modules: {
