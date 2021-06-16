@@ -12,21 +12,21 @@ export default createStore({
         name: 'abul',
         desc: 'miles morales',
         img: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/spiderman-1604616315.jpg?crop=0.5xw:1xh;center,top&resize=640:*',
-        timestamp: '2021-06-12T12:59:57.337Z'
+        createdAt: '2021-06-12T12:59:57.337Z'
       },
       {
         _id: 1,
         name: 'syed',
         desc: 'kung fu panda',
         img: 'https://i.pinimg.com/originals/47/b5/ba/47b5ba2fc47a122a2dc5949cf17e5c84.jpg',
-        timestamp: '2021-06-12T12:59:57.337Z'
+        createdAt: '2021-06-12T12:59:57.337Z'
       },
       {
         _id: 2,
         name: 'unknown user',
         desc: 'vueee',
         img: 'https://www.dotcom-monitor.com/blog/wp-content/uploads/sites/3/2020/05/Vue-logo-1.png',
-        timestamp: '2021-06-12T12:59:57.337Z'
+        createdAt: '2021-06-12T12:59:57.337Z'
       }
     ],
     url: null
@@ -47,8 +47,11 @@ export default createStore({
         name: post.name,
         desc: post.desc,
         img: post.img,
-        timestamp: post.createdAt
+        createdAt: post.createdAt
       })
+    },
+    SET_FEED(state, posts){
+      state.feed = posts
     }
   },
   actions: {
@@ -77,6 +80,7 @@ export default createStore({
     logout(context){
       localStorage.removeItem('token')
       context.commit('SET_USER', null)
+      context.commit('SET_ERROR', null)
     },
     async uploadImage(context, file){
       const storageRef = storageService.ref(`images/${context.state.user._id}/${file.name}`)
@@ -99,6 +103,20 @@ export default createStore({
           }
         })
         context.commit('ADD_POST', res.data)
+        context.commit('SET_ERROR', null)
+      }catch(err){
+        console.log(err.response.data)
+        context.commit('SET_ERROR', err.response.data)
+      }
+    },
+    async fetchPosts(context){
+      try {
+        const res = await api.get('/posts', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        context.commit('SET_FEED', res.data)
         context.commit('SET_ERROR', null)
       }catch(err){
         console.log(err.response.data)

@@ -6,7 +6,7 @@
         <h3 class="post-name">{{ post.name }}</h3>
         <img :src="post.img" alt="" class="post-img">
         <p class="post-desc">{{ post.desc }}</p>
-        <p>{{ formatDate(post.timestamp) }}</p>
+        <p>{{ formatDate(post.createdAt) }}</p>
       </div>
     </div>
     <Footer />
@@ -25,9 +25,13 @@ export default {
     ...mapState(['feed'])
   },
   methods: {
-    formatDate(timestamp){
-      return formatDistanceToNow(new Date(timestamp), { addSuffix: true })
+    formatDate(createdAt){
+      return formatDistanceToNow(new Date(createdAt), { addSuffix: true })
     }
+  },
+  created() {
+    console.log('created')
+    this.$store.dispatch('fetchPosts')
   }
 }
 </script>
