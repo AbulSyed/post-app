@@ -29,7 +29,7 @@ export default {
       return formatDistanceToNow(new Date(createdAt), { addSuffix: true })
     }
   },
-  created() {
+  created(){
     this.$store.dispatch('fetchPosts')
   }
 }
