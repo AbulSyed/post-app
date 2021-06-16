@@ -3,7 +3,7 @@
     <Header />
     <div class="feed">
       <div v-for="post in feed" :key="post._id" class="post">
-        <h3 class="post-name">{{ post.name }}</h3>
+        <h3 class="post-name">Posted by {{ post.name }}</h3>
         <img :src="post.img" alt="" class="post-img">
         <p class="post-desc">{{ post.desc }}</p>
         <p>{{ formatDate(post.createdAt) }}</p>
@@ -59,7 +59,7 @@ export default {
 }
 .post-desc {
   padding: .5rem 0;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
 }
 </style>
