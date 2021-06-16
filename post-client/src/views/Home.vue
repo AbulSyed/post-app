@@ -2,7 +2,7 @@
   <div class="home">
     <Header />
     <div class="feed">
-      <div v-for="post in feed" :key="post._id" class="post">
+      <div v-for="post in posts" :key="post._id" class="post">
         <h3 class="post-name">Posted by {{ post.name }}</h3>
         <img :src="post.img" alt="" class="post-img">
         <p class="post-desc">{{ post.desc }}</p>
@@ -22,7 +22,7 @@ import { formatDistanceToNow } from 'date-fns'
 export default {
   components: { Header, Footer },
   computed: {
-    ...mapState(['feed'])
+    ...mapState(['posts'])
   },
   methods: {
     formatDate(createdAt){
