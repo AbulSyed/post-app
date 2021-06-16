@@ -43,7 +43,7 @@ export default createStore({
     },
     ADD_POST(state, post){
       state.feed = state.feed.concat({
-        _id: post.id,
+        _id: post._id,
         name: post.name,
         desc: post.desc,
         img: post.img,
@@ -99,6 +99,7 @@ export default createStore({
           }
         })
         context.commit('ADD_POST', res.data)
+        context.commit('SET_ERROR', null)
       }catch(err){
         console.log(err.response.data)
         context.commit('SET_ERROR', err.response.data)
