@@ -1,7 +1,7 @@
 <template>
   <div class="profile">
     <Header />
-    <div class="posts">
+    <div class="profile-posts">
       <div v-for="post in profilePosts" :key="post._id" class="post">
         <img :src="post.img" alt="" class="post-img">
       </div>
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style scoped>
-.posts {
+.profile-posts {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2rem;
@@ -51,12 +51,12 @@ export default {
   }
 }
 @media(max-width: 500px){
-  .posts {
+  .profile-posts {
     grid-template-columns: 1fr;
   }
 }
 @media(min-width: 500px) and (max-width: 768px){
-  .posts {
+  .profile-posts {
     grid-template-columns: 1fr 1fr;
   }
 }
