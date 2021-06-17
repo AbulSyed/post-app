@@ -3,9 +3,7 @@
     <Header />
     <div class="feed">
       <div v-for="post in profilePosts" :key="post._id" class="post">
-        <div class="image">
-          <img :src="post.img" alt="" class="post-img">
-        </div>
+        <img :src="post.img" alt="" class="post-img">
       </div>
     </div>
     <Footer />
