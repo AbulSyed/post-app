@@ -37,7 +37,7 @@ export default {
 
 <style scoped>
 .feed {
-  margin: 5rem 0;
+  margin: 7rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;

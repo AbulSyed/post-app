@@ -7,7 +7,9 @@
     <form @submit.prevent="handleSubmit">
       <input type="email" required placeholder="email" v-model="email">
       <input type="password" required placeholder="password" v-model="password">
-      <button>Login</button>
+      <button>
+        <span class="material-icons">login</span>
+      </button>
       <div v-if="error" class="error">{{ error }}</div>
     </form>
     <footer>
@@ -94,13 +96,16 @@ form input:focus {
 form button {
   border: none;
   outline: none;
+  appearance: none;
   padding: 1rem;
-  background: #2580F7;
+  background: #000;
   cursor: pointer;
   border-radius: .5rem;
   color: #fff;
-  font-size: 1.8rem;
-  font-weight: 700;
+  transition: all .5s;
+}
+form button:hover {
+  background: rgb(61, 61, 61);
 }
 .error {
   color: rgb(243, 35, 35);

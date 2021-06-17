@@ -4,7 +4,9 @@
     <form @submit.prevent="handleSubmit">
       <textarea required placeholder="desc" v-model="desc"></textarea>
       <input type="file" @change="handleChange">
-      <button>Post</button>
+      <button>
+        <span class="material-icons">add</span>
+      </button>
       <div v-if="fileError" class="error">{{ fileError }}</div>
     </form>
     <Footer />
@@ -81,13 +83,7 @@ form input[type='file'] {
 form button {
   border: none;
   outline: none;
-  padding: 1rem;
-  background: #2580F7;
   cursor: pointer;
-  border-radius: .5rem;
-  color: #fff;
-  font-size: 1.8rem;
-  font-weight: 700;
 }
 .error {
   color: rgb(243, 35, 35);

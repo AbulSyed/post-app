@@ -3,7 +3,9 @@
     <div v-if="user">
       <p>Welcome {{ user.name }}</p>
     </div>
-    <button @click="handleClick">Logout</button>
+    <button @click="handleClick">
+      <span class="material-icons">logout</span>
+    </button>
   </div>
 </template>
 
@@ -43,12 +45,12 @@ p {
 button {
   border: none;
   outline: none;
+  background: none;
+  appearance: none;
   padding: .5rem;
-  background: #2580F7;
   cursor: pointer;
-  border-radius: .5rem;
-  color: #fff;
-  font-size: 1.2rem;
-  font-weight: 700;
+}
+button:hover {
+  color: rgb(105, 105, 105);
 }
 </style>
