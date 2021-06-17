@@ -132,7 +132,7 @@ footer p {
   font-size: 1.8rem;
 }
 .link {
-  color: #2580F7;
+  color: #000;
   text-decoration: none;
 }
 </style>
