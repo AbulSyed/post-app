@@ -29,7 +29,8 @@ export default createStore({
       //   createdAt: '2021-06-12T12:59:57.337Z'
       // }
     ],
-    url: null
+    url: null,
+    profilePosts: []
   },
   mutations: {
     SET_USER(state, user){
@@ -52,6 +53,9 @@ export default createStore({
     },
     SET_POSTS(state, posts){
       state.posts = posts
+    },
+    SET_PROFILE_POSTS(state, profilePosts){
+      state.profilePosts = profilePosts
     }
   },
   actions: {
@@ -117,6 +121,20 @@ export default createStore({
           }
         })
         context.commit('SET_POSTS', res.data)
+        context.commit('SET_ERROR', null)
+      }catch(err){
+        console.log(err.response.data)
+        context.commit('SET_ERROR', err.response.data)
+      }
+    },
+    async fetchProfilePosts(context){
+      try {
+        const res = await api.get('/profileposts', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        context.commit('SET_PROFILE_POSTS', res.data)
         context.commit('SET_ERROR', null)
       }catch(err){
         console.log(err.response.data)

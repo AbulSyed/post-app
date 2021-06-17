@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import AddPost from '../views/AddPost.vue'
+import Profile from '../views/Profile.vue'
 
 const requireAuth = (to, from, next) => {
   if(!localStorage.getItem('token')){
@@ -43,6 +44,12 @@ const routes = [
     path: '/addPost',
     name: 'AddPost',
     component: AddPost,
+    beforeEnter: requireAuth
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
     beforeEnter: requireAuth
   }
 ]

@@ -2,7 +2,7 @@
   <div class="footer">
     <button @click="goto('/')">Home</button>
     <button @click="goto('/addPost')">Post</button>
-    <button>Profile</button>
+    <button @click="goto('/profile')">Profile</button>
   </div>
 </template>
 

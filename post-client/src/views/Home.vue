@@ -54,8 +54,14 @@ export default {
   padding: .5rem 0;
 }
 .post-img {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
+}
+@media(max-width: 768px) {
+  .post-img {
+    width: 300px;
+    height: 300px;
+  }
 }
 .post-desc {
   padding: .5rem 0;

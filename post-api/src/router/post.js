@@ -29,4 +29,13 @@ router.get('/posts', async (req, res) => {
   }
 })
 
+router.get('/profileposts', async (req, res) => {
+  try {
+    const posts = await Post.find({ owner: req.user._id })
+    res.status(200).send(posts)
+  }catch(e){
+    res.status(400).send()
+  }
+})
+
 module.exports = router
