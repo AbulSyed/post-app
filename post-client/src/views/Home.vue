@@ -47,7 +47,6 @@ export default {
   margin: 1rem 0;
   background: #fff;
   border-radius: 5px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .post-name {

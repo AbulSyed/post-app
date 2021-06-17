@@ -30,49 +30,36 @@ export default {
 
 <style scoped>
 .feed {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2rem;
+}
+.profile {
+  margin: 7rem 0;
 }
 .post-img {
   width: 200px;
-}
-/* .profile {
-  margin: 5rem 0;
-} */
-.feed {
-  /* display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 2rem;
-  padding: 1rem; */
-  /* display: flex;
-  flex-wrap: wrap; */
-}
-/* .post {
+  height: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  margin: 1rem;
-} */
-/* .post-img {
-  width: 100%;
-  display: block;
-} */
-/* .image {
-  width: 300px;
-  height: 300px;
-  overflow: hidden;
   border-radius: 10px;
-} */
-/* img {
-  width: 150%;
-  height: 150%;
-  display: block;
-} */
-/* @media(max-width: 425px){
+}
+@media (min-width: 500px){
+  .post-img {
+    width: 300px;
+    height: 300px; 
+  }
+}
+@media(max-width: 500px){
+  .feed {
+    grid-template-columns: 1fr;
+  }
+}
+@media(min-width: 500px) and (max-width: 768px){
   .feed {
     grid-template-columns: 1fr 1fr;
   }
 }
-@media(min-width: 1024px){
-  .feed {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-} */
 </style>
