@@ -13,7 +13,7 @@ const requireAuth = (to, from, next) => {
   }
 }
 
-const authed = (to, from, next) => {
+const requireNoAuth = (to, from, next) => {
   if(localStorage.getItem('token')){
     next({ name: 'Home' })
   }else{
@@ -32,13 +32,13 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
-    beforeEnter: authed
+    beforeEnter: requireNoAuth
   },
   {
     path: '/signup',
     name: 'Signup',
     component: Signup,
-    beforeEnter: authed
+    beforeEnter: requireNoAuth
   },
   {
     path: '/addPost',

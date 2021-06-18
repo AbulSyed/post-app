@@ -27,13 +27,13 @@ export default {
 </script>
 
 <style scoped>
+.profile {
+  margin: 7rem 0;
+}
 .profile-posts {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2rem;
-}
-.profile {
-  margin: 7rem 0;
 }
 .post-img {
   width: 200px;
