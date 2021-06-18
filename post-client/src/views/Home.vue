@@ -3,7 +3,12 @@
     <Header />
     <div class="feed">
       <div v-for="post in posts" :key="post._id" class="post">
-        <h3 class="post-name">Posted by {{ post.name }}</h3>
+        <div class="post-header">
+          <h3 class="post-name">Posted by {{ post.name }}</h3>
+          <button v-if="$store.state.user && $store.state.user._id === post.owner" @click="handleClick(post.filePath, post._id)">
+            <span class="material-icons">delete</span>
+          </button>
+        </div>
         <img :src="post.img" alt="" class="post-img">
         <p class="post-desc">{{ post.desc }}</p>
         <p>{{ formatDate(post.createdAt) }}</p>
@@ -27,6 +32,10 @@ export default {
   methods: {
     formatDate(createdAt){
       return formatDistanceToNow(new Date(createdAt), { addSuffix: true })
+    },
+    async handleClick(filePath, _id){
+      await this.$store.dispatch('deleteImage', filePath)
+      await this.$store.dispatch('deletePost', _id)
     }
   },
   created(){
@@ -49,8 +58,25 @@ export default {
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-.post-name {
-  padding: .5rem 0;
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+button {
+  border: none;
+  outline: none;
+  background: none;
+  appearance: none;
+  cursor: pointer;
+  transition: all .2s;
+}
+button:hover {
+  color: rgb(105, 105, 105);
+}
+span {
+  font-size: 2rem;
 }
 .post-img {
   width: 400px;

@@ -47,7 +47,8 @@ export default {
       const res = await this.$store.dispatch('uploadImage', this.file)
       await this.$store.dispatch('addPost', {
         desc: this.desc,
-        img: res
+        img: res.url,
+        filePath: res.filePath
       })
       if(!this.error){
         this.$router.push({ name: 'Home' })

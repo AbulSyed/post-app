@@ -17,6 +17,10 @@ const postSchema = new mongoose.Schema({
   img: {
     type: String,
     required: true
+  },
+  filePath: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: true

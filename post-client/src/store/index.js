@@ -1,30 +1,32 @@
 import { createStore } from 'vuex'
 import api from '../api/api'
 import { storageService } from '../firebase/config'
+import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
+  plugins: [createPersistedState()],
   state: {
     user: null,
     error: null,
     posts: [
       // {
       //   _id: 0,
-      //   name: 'abul',
+      //   name: 'Abul',
       //   desc: 'miles morales',
       //   img: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/spiderman-1604616315.jpg?crop=0.5xw:1xh;center,top&resize=640:*',
       //   createdAt: '2021-06-12T12:59:57.337Z'
       // },
       // {
       //   _id: 1,
-      //   name: 'syed',
-      //   desc: 'kung fu panda',
+      //   name: 'Syed',
+      //   desc: 'Po at the sacred peach tree',
       //   img: 'https://i.pinimg.com/originals/47/b5/ba/47b5ba2fc47a122a2dc5949cf17e5c84.jpg',
       //   createdAt: '2021-06-12T12:59:57.337Z'
       // },
       // {
       //   _id: 2,
-      //   name: 'unknown user',
-      //   desc: 'vueee',
+      //   name: 'Abul',
+      //   desc: 'built using mevn + firebase storage',
       //   img: 'https://www.dotcom-monitor.com/blog/wp-content/uploads/sites/3/2020/05/Vue-logo-1.png',
       //   createdAt: '2021-06-12T12:59:57.337Z'
       // }
@@ -56,6 +58,9 @@ export default createStore({
     },
     SET_PROFILE_POSTS(state, profilePosts){
       state.profilePosts = profilePosts
+    },
+    DELETE_POST(state, _id){
+      state.posts = state.posts.filter(post => post._id !== _id)
     }
   },
   actions: {
@@ -87,13 +92,15 @@ export default createStore({
       context.commit('SET_ERROR', null)
     },
     async uploadImage(context, file){
-      const storageRef = storageService.ref(`images/${context.state.user._id}/${file.name}`)
+      const filePath = `images/${context.state.user._id}/${file.name}`
+      const storageRef = storageService.ref(filePath)
 
       try {
         const res = await storageRef.put(file)
-        await context.commit('SET_URL', res.ref.getDownloadURL())
+        const url = await res.ref.getDownloadURL()
+        context.commit('SET_URL', url)
         context.commit('SET_ERROR', null)
-        return res.ref.getDownloadURL()
+        return { url, filePath }
       }catch(err){
         console.log(err.message)
         context.commit('SET_ERROR', err.message)
@@ -135,6 +142,31 @@ export default createStore({
           }
         })
         context.commit('SET_PROFILE_POSTS', res.data)
+        context.commit('SET_ERROR', null)
+      }catch(err){
+        console.log(err.response.data)
+        context.commit('SET_ERROR', err.response.data)
+      }
+    },
+    async deleteImage(context, filePath){
+      const storageRef = storageService.ref(filePath)
+
+      try {
+        await storageRef.delete()
+        context.commit('SET_ERROR', null)
+      }catch(err){
+        console.log(err.message)
+        context.commit('SET_ERROR', err.message)
+      }
+    },
+    async deletePost(context, _id){
+      try {
+        await api.delete(`/posts/${_id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        context.commit('DELETE_POST', _id)
         context.commit('SET_ERROR', null)
       }catch(err){
         console.log(err.response.data)
