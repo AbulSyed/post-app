@@ -18,10 +18,12 @@ import { mapState } from 'vuex'
 export default {
   components: { Header, Footer },
   computed: {
-    ...mapState(['profilePosts'])
+    ...mapState({
+      profilePosts: state => state.posts.profilePosts
+    })
   },
   created(){
-    this.$store.dispatch('fetchProfilePosts')
+    this.$store.dispatch('posts/fetchProfilePosts')
   }
 }
 </script>

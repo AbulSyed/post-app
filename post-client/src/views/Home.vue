@@ -5,7 +5,7 @@
       <div v-for="post in posts" :key="post._id" class="post">
         <div class="post-header">
           <h3 class="post-name">Posted by {{ post.name }}</h3>
-          <button v-if="$store.state.user && $store.state.user._id === post.owner" @click="handleClick(post.filePath, post._id)">
+          <button v-if="$store.state.auth.user && $store.state.auth.user._id === post.owner" @click="handleClick(post.filePath, post._id)">
             <span class="material-icons">delete</span>
           </button>
         </div>
@@ -27,19 +27,21 @@ import { formatDistanceToNow } from 'date-fns'
 export default {
   components: { Header, Footer },
   computed: {
-    ...mapState(['posts'])
+    ...mapState({
+      posts: state => state.posts.posts
+    })
   },
   methods: {
     formatDate(createdAt){
       return formatDistanceToNow(new Date(createdAt), { addSuffix: true })
     },
     async handleClick(filePath, _id){
-      await this.$store.dispatch('deleteImage', filePath)
-      await this.$store.dispatch('deletePost', _id)
+      await this.$store.dispatch('images/deleteImage', filePath)
+      await this.$store.dispatch('posts/deletePost', _id)
     }
   },
   created(){
-    this.$store.dispatch('fetchPosts')
+    this.$store.dispatch('posts/fetchPosts')
   }
 }
 </script>

@@ -29,7 +29,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['error'])
+    ...mapState({
+      error: state => state.error
+    })
   },
   methods: {
     handleChange(e){
@@ -44,8 +46,8 @@ export default {
       }
     },
     async handleSubmit(){
-      const res = await this.$store.dispatch('uploadImage', this.file)
-      await this.$store.dispatch('addPost', {
+      const res = await this.$store.dispatch('images/uploadImage', this.file)
+      await this.$store.dispatch('posts/addPost', {
         desc: this.desc,
         img: res.url,
         filePath: res.filePath

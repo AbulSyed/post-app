@@ -31,11 +31,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['error'])
+    ...mapState({
+      error: state => state.error
+    })
   },
   methods: {
     async handleSubmit(){
-      await this.$store.dispatch('signup', {
+      await this.$store.dispatch('auth/signup', {
         name: this.name,
         email: this.email,
         password: this.password
