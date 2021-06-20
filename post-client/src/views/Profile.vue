@@ -1,10 +1,13 @@
 <template>
   <div class="profile">
     <Header />
-    <div class="profile-posts">
+    <div v-if="profilePosts.length" class="profile-posts">
       <div v-for="post in profilePosts" :key="post._id" class="post">
         <img :src="post.img" alt="" class="post-img">
       </div>
+    </div>
+    <div v-else>
+      <p>You have no posts</p>
     </div>
     <Footer />
   </div>
