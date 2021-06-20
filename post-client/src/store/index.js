@@ -8,29 +8,7 @@ export default createStore({
   state: {
     user: null,
     error: null,
-    posts: [
-      // {
-      //   _id: 0,
-      //   name: 'Abul',
-      //   desc: 'miles morales',
-      //   img: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/spiderman-1604616315.jpg?crop=0.5xw:1xh;center,top&resize=640:*',
-      //   createdAt: '2021-06-12T12:59:57.337Z'
-      // },
-      // {
-      //   _id: 1,
-      //   name: 'Syed',
-      //   desc: 'Po at the sacred peach tree',
-      //   img: 'https://i.pinimg.com/originals/47/b5/ba/47b5ba2fc47a122a2dc5949cf17e5c84.jpg',
-      //   createdAt: '2021-06-12T12:59:57.337Z'
-      // },
-      // {
-      //   _id: 2,
-      //   name: 'Abul',
-      //   desc: 'built using mevn + firebase storage',
-      //   img: 'https://www.dotcom-monitor.com/blog/wp-content/uploads/sites/3/2020/05/Vue-logo-1.png',
-      //   createdAt: '2021-06-12T12:59:57.337Z'
-      // }
-    ],
+    posts: [],
     url: null,
     profilePosts: []
   },
