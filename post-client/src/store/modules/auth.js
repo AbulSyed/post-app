@@ -37,6 +37,7 @@ export default {
       localStorage.removeItem('token')
       context.commit('SET_USER', null)
       context.commit('SET_ERROR', null, { root: true })
+      context.commit('posts/SET_PROFILE_POSTS', [], { root: true })
     }
   },
   getters: {
