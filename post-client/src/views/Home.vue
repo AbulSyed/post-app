@@ -11,7 +11,7 @@
         </div>
         <img :src="post.img" alt="" class="post-img">
         <p class="post-desc">{{ post.desc }}</p>
-        <p>{{ formatDate(post.createdAt) }}</p>
+        <p>{{ formatTime(post.createdAt) }}</p>
       </div>
     </div>
     <Footer />
@@ -32,7 +32,7 @@ export default {
     })
   },
   methods: {
-    formatDate(createdAt){
+    formatTime(createdAt){
       return formatDistanceToNow(new Date(createdAt), { addSuffix: true })
     },
     async handleClick(filePath, _id){
