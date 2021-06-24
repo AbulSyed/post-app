@@ -29,7 +29,7 @@ export default {
   actions: {
     async addPost(context, post){
       try {
-        const res = await api.post('/post', post, {
+        const res = await api.post('/posts', post, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
@@ -85,6 +85,6 @@ export default {
     }
   },
   getters: {
-    
+
   }
 }
