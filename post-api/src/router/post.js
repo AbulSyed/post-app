@@ -5,7 +5,7 @@ const requireAuth = require('../middleware/requireAuth')
 
 router.use(requireAuth)
 
-router.post('/post', async (req, res) => {
+router.post('/posts', async (req, res) => {
   try {
     const post = new Post({
       owner: req.user._id,
